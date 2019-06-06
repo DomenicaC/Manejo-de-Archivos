@@ -5,8 +5,13 @@
  */
 package archivos;
 
+import java.awt.HeadlessException;
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,6 +37,7 @@ public class visu extends javax.swing.JFrame {
 
         oculto = new DefaultListModel();
         listOcu.setModel(oculto);
+
     }
 
     /**
@@ -43,13 +49,14 @@ public class visu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jLabel4 = new javax.swing.JLabel();
         txtRuta = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        btnBuscar = new javax.swing.JButton();
+        jlbFechaM = new javax.swing.JLabel();
+        jlbRutaAb = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listDirec = new javax.swing.JList();
@@ -57,83 +64,151 @@ public class visu extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         listArc = new javax.swing.JList();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         listOcu = new javax.swing.JList();
-        jTextField4 = new javax.swing.JTextField();
+        btnBuscar1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jItemCrearA = new javax.swing.JMenuItem();
+        jItemCrearC = new javax.swing.JMenuItem();
+        jItemRen = new javax.swing.JMenuItem();
+        jItemEliminar = new javax.swing.JMenuItem();
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel4.setText("RUTA:");
 
-        jButton1.setText("BUSCAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Fecaha de Modificacion");
+        jlbFechaM.setText("Fecaha de Modificacion:");
 
-        jLabel6.setText("Tipo de Archivo:");
+        jlbRutaAb.setText("Ruta Absoluta:");
 
         jLabel7.setText("Tamaño: ");
 
         jLabel1.setText("Directorios");
 
+        listDirec.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listDirecValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(listDirec);
 
         jLabel2.setText("Archivos");
 
+        listArc.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listArcValueChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(listArc);
 
         jLabel3.setText("Ocultos");
 
+        listOcu.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listOcuValueChanged(evt);
+            }
+        });
         jScrollPane3.setViewportView(listOcu);
+
+        btnBuscar1.setText("REGRESAR");
+        btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar1ActionPerformed(evt);
+            }
+        });
+
+        jMenu2.setText("File");
+
+        jItemCrearA.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jItemCrearA.setText("Crear Archivos");
+        jItemCrearA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jItemCrearAActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jItemCrearA);
+
+        jItemCrearC.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jItemCrearC.setText("Crear Carpeta");
+        jItemCrearC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jItemCrearCActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jItemCrearC);
+
+        jItemRen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        jItemRen.setText("Rename");
+        jItemRen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jItemRenActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jItemRen);
+
+        jItemEliminar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jItemEliminar.setText("Eliminar");
+        jItemEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jItemEliminarActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jItemEliminar);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(jLabel4)
+                        .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(11, 11, 11)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(57, 57, 57)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(42, 42, 42)
-                                                .addComponent(jLabel2)))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(42, 42, 42)
-                                                .addComponent(jLabel3))))
-                                    .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtRuta)
+                                .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jLabel1)
+                                .addGap(164, 164, 164)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addGap(76, 76, 76))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlbFechaM)
+                            .addComponent(jlbRutaAb)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnBuscar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnBuscar1)
+                                        .addGap(22, 22, 22))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 11, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,42 +218,43 @@ public class visu extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnBuscar1))
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(jlbFechaM)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jlbRutaAb)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel7))
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        vaciarLista();
+
+        /*
+         listArc.clearSelection();
+         listDirec.clearSelection();
+         listOcu.clearSelection();*/
         File ruta;
-        ruta = new File(txtRuta.getText());
+        ruta = new File(txtRuta.getText().trim());
         File[] archivos = ruta.listFiles();
 
         for (File archivo : archivos) {
@@ -209,17 +285,334 @@ public class visu extends javax.swing.JFrame {
 
             } /*else if (archivo.isHidden()) {
 
-                System.out.println("Ocultos " + archivo.getName());
-                String lista = archivo.getName();
-                arch.addElement(lista);
+             System.out.println("Ocultos " + archivo.getName());
+             String lista = archivo.getName();
+             arch.addElement(lista);
 
-            }*/
-        }
-
-        {
+             }*/
 
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void listDirecValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listDirecValueChanged
+
+        //listDirec.clearSelection();
+        String elementoSelec = (String) listDirec.getSelectedValue();
+        System.out.println("Elemento Seleccionado " + elementoSelec);
+
+        mostrarDatos(elementoSelec);
+
+        listArc.clearSelection();
+        listOcu.clearSelection();
+
+    }//GEN-LAST:event_listDirecValueChanged
+
+    private void listArcValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listArcValueChanged
+
+        //listArc.clearSelection();
+        String elementoSelec = (String) listArc.getSelectedValue();
+        System.out.println("Elemento Seleccionado " + elementoSelec);
+
+        mostrarDatos(elementoSelec);
+
+        listDirec.clearSelection();
+        listOcu.clearSelection();
+
+    }//GEN-LAST:event_listArcValueChanged
+
+    private void listOcuValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listOcuValueChanged
+
+        //listOcu.clearSelection();
+        String elementoSelec = (String) listOcu.getSelectedValue();
+        System.out.println("Elemento Seleccionado " + elementoSelec);
+
+        mostrarDatos(elementoSelec);
+
+        listArc.clearSelection();
+        listDirec.clearSelection();
+
+    }//GEN-LAST:event_listOcuValueChanged
+
+    public void mostrarDatos(String elementoSelec) {
+        String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
+        System.out.println("Ruta elemento Seleccionado " + rutaSelec);
+
+        File archivoSelec = new File(rutaSelec);
+        long fechaMod = archivoSelec.lastModified();
+        Date fecha = new Date(fechaMod);
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaText = formatoFecha.format(fecha);
+
+        //ruta absoluta
+        String rutaA = archivoSelec.getAbsolutePath();
+
+        //tam
+        long tam = archivoSelec.length();
+        long kb = tam / 1024;
+
+        //fecha modificacion
+        jlbFechaM.setText("Fecha de Modificacion: " + fechaText);
+
+        //ruta absoluta
+        jlbRutaAb.setText("Ruta Absoluta: " + rutaA);
+
+        //tamaño 
+        jLabel7.setText("Tamaño: " + kb);
+    }
+
+
+    private void jItemCrearAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemCrearAActionPerformed
+
+        //String elementoSelec1 = (String) listOcu.getSelectedValue();
+       /* String elementoSelec2 = (String) listArc.getSelectedValue();
+         String elementoSelec3 = (String) listDirec.getSelectedValue();
+
+         elementoSelec1.*/
+        //mostrarDatos(elementoSelec);
+        String achivoSelec = null;
+
+        if (!listDirec.isSelectionEmpty()) {
+
+            achivoSelec = (String) listDirec.getSelectedValue();
+
+            String nombreAr = JOptionPane.showInputDialog("Ingrese el nombre del archivo");
+            String ruta = txtRuta.getText().trim() + "\\" + achivoSelec + "\\" + nombreAr;
+            System.out.println("Nombre del archivo " + nombreAr + " Ruta Archivo " + ruta);
+
+            File archivoNew = new File(ruta);
+            if (!archivoNew.exists()) {
+                try {
+                    archivoNew.createNewFile();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Archivo no creado");
+                    System.out.println("Archivo no creado");
+                }
+            }
+
+        } else if (!listOcu.isSelectionEmpty()) {
+
+            achivoSelec = (String) listOcu.getSelectedValue();
+
+            String nombreAr = JOptionPane.showInputDialog("Ingrese el nombre del archivo");
+            String ruta = txtRuta.getText().trim() + "\\" + achivoSelec + "\\" + nombreAr;
+            System.out.println("Nombre del archivo " + nombreAr + " Ruta Archivo " + ruta);
+
+            File archivoNew = new File(ruta);
+            if (!archivoNew.exists()) {
+                try {
+                    archivoNew.createNewFile();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Archivo no creado");
+                    System.out.println("Archivo no creado");
+                }
+            }
+
+        } else {
+            String nombreAr = JOptionPane.showInputDialog("Ingrese el nombre del archivo");
+            String ruta = txtRuta.getText().trim() + "\\" + nombreAr;
+            System.out.println("Nombre del archivo " + nombreAr + " Ruta Archivo " + ruta);
+
+            File archivoNew = new File(ruta);
+            if (!archivoNew.exists()) {
+                try {
+                    archivoNew.createNewFile();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Archivo no creado");
+                    System.out.println("Archivo no creado");
+                }
+            }
+        }
+        actualizar();
+
+        //String rutaArcSelec = txtRuta.getText().trim() + "\\" + achivoSelec;
+
+    }//GEN-LAST:event_jItemCrearAActionPerformed
+
+    public void vaciarLista() {
+
+        DefaultListModel lisDir = (DefaultListModel) listDirec.getModel();
+        lisDir.removeAllElements();
+
+        DefaultListModel lisArc = (DefaultListModel) listArc.getModel();
+        lisArc.removeAllElements();
+
+        DefaultListModel lisOcu = (DefaultListModel) listOcu.getModel();
+        lisOcu.removeAllElements();
+
+    }
+
+    
+    public void actualizar(){
+        vaciarLista();
+
+        File ruta;
+        ruta = new File(txtRuta.getText().trim());
+        File[] archivos = ruta.listFiles();
+
+        for (File archivo : archivos) {
+
+            if (archivo.isDirectory()) {
+                if (archivo.isHidden()) {
+                    System.out.println("Ocultos " + archivo.getName());
+                    String lista = archivo.getName();
+                    oculto.addElement(lista);
+
+                } else {
+                    System.out.println("Directorios " + archivo.getName());
+                    String lista = archivo.getName();
+                    direc.addElement(lista);
+                }
+
+            } else if (archivo.isFile()) {
+                if (archivo.isHidden()) {
+                    System.out.println("Ocultos " + archivo.getName());
+                    String lista = archivo.getName();
+                    oculto.addElement(lista);
+
+                } else {
+                    System.out.println("Archivos " + archivo.getName());
+                    String lista = archivo.getName();
+                    arch.addElement(lista);
+                }
+
+            }
+        }
+    }
+    
+    private void jItemRenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemRenActionPerformed
+
+        String achivoSelec = null;
+
+        if (!listArc.isSelectionEmpty()) {
+
+            achivoSelec = (String) listArc.getSelectedValue();
+
+        } else if (!listDirec.isSelectionEmpty()) {
+
+            achivoSelec = (String) listDirec.getSelectedValue();
+
+        } else if (!listOcu.isSelectionEmpty()) {
+
+            achivoSelec = (String) listOcu.getSelectedValue();
+
+        }
+
+        String rutaArcSelec = txtRuta.getText().trim() + "\\" + achivoSelec;
+
+        File archivo = new File(rutaArcSelec);
+
+        String nombreNuevo = JOptionPane.showInputDialog("Ingrese el nuevo nombre del archivo");
+        String rutaNueva = txtRuta.getText().trim() + "\\" + nombreNuevo.trim();
+        File archivoNuevo = new File(rutaNueva);
+
+        if (archivoNuevo.exists()) {
+            JOptionPane.showMessageDialog(this, "Nombre ya exxiste");
+        } else {
+            archivo.renameTo(archivoNuevo);
+            JOptionPane.showMessageDialog(this, "Se cambio de nombre correctamente");
+        }
+
+        actualizar();
+
+    }//GEN-LAST:event_jItemRenActionPerformed
+
+    private void jItemCrearCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemCrearCActionPerformed
+
+        String carpetaSelec = null;
+
+        if (!listDirec.isSelectionEmpty()) {
+
+            carpetaSelec = (String) listDirec.getSelectedValue();
+
+            String nombreCar = JOptionPane.showInputDialog("Ingrese el nombre de la Carpeta");
+            String ruta = txtRuta.getText().trim() + "\\" + carpetaSelec + "\\" + nombreCar;
+            System.out.println("Nombre de la carpeta " + carpetaSelec + " Ruta Archivo " + ruta);
+
+            File carpetaNew = new File(ruta);
+
+            if (!carpetaNew.exists()) {
+
+                carpetaNew.mkdir();
+                JOptionPane.showMessageDialog(this, "Carpeta Creada");
+
+            }
+
+        } else if (!listOcu.isSelectionEmpty()) {
+
+            carpetaSelec = (String) listOcu.getSelectedValue();
+
+            String nombreCar = JOptionPane.showInputDialog("Ingrese el nombre de la Carpeta");
+            String ruta = txtRuta.getText().trim() + "\\" + carpetaSelec + "\\" + nombreCar;
+            System.out.println("Nombre de la carpeta " + carpetaSelec + " Ruta Archivo " + ruta);
+
+            File carpetaNew = new File(ruta);
+
+            if (!carpetaNew.exists()) {
+
+                carpetaNew.mkdir();
+                JOptionPane.showMessageDialog(this, "Carpeta Creada");
+
+            }
+
+        } else {
+
+            String nombre = JOptionPane.showInputDialog("Ingrese el nombre de la Carpeta");
+            String ruta = txtRuta.getText().trim() + "\\" + nombre;
+
+            File carpetaNew = new File(ruta);
+
+            if (!carpetaNew.exists()) {
+
+                carpetaNew.mkdir();
+                JOptionPane.showMessageDialog(this, "Carpeta Creada");
+
+            }
+        }
+
+        actualizar();
+    }//GEN-LAST:event_jItemCrearCActionPerformed
+
+    private void jItemEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemEliminarActionPerformed
+
+        String achivoSelec = null;
+        boolean isValid = true;
+
+        if (!listArc.isSelectionEmpty()) {
+
+            achivoSelec = (String) listArc.getSelectedValue();
+
+        } else if (!listDirec.isSelectionEmpty()) {
+
+            achivoSelec = (String) listDirec.getSelectedValue();
+
+        } else if (!listOcu.isSelectionEmpty()) {
+
+            achivoSelec = (String) listOcu.getSelectedValue();
+
+        } else {
+            isValid = false;
+            //JOptionPane.showMessageDialog(this, "no hay ningun elemento seleccionado");
+        }
+
+        if (isValid = true) {
+            JOptionPane.showConfirmDialog(this, "Desea Eliminar");
+            String rutaArcSelec = txtRuta.getText().trim() + "\\" + achivoSelec;
+
+            File archivo = new File(rutaArcSelec);
+
+            archivo.delete();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo elimionar \n No hay ningun elemento seleccionado");
+        }
+
+        actualizar();
+        
+    }//GEN-LAST:event_jItemEliminarActionPerformed
+
+    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,20 +650,26 @@ public class visu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscar1;
+    private javax.swing.JMenuItem jItemCrearA;
+    private javax.swing.JMenuItem jItemCrearC;
+    private javax.swing.JMenuItem jItemEliminar;
+    private javax.swing.JMenuItem jItemRen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel jlbFechaM;
+    private javax.swing.JLabel jlbRutaAb;
     private javax.swing.JList listArc;
     private javax.swing.JList listDirec;
     private javax.swing.JList listOcu;
