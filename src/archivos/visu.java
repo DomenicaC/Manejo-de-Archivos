@@ -5,12 +5,12 @@
  */
 package archivos;
 
-import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,6 +37,8 @@ public class visu extends javax.swing.JFrame {
 
         oculto = new DefaultListModel();
         listOcu.setModel(oculto);
+
+        txtRuta1.setVisible(false);
 
     }
 
@@ -66,7 +68,8 @@ public class visu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         listOcu = new javax.swing.JList();
-        btnBuscar1 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
+        txtRuta1 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jItemCrearA = new javax.swing.JMenuItem();
@@ -95,6 +98,11 @@ public class visu extends javax.swing.JFrame {
 
         jLabel1.setText("Directorios");
 
+        listDirec.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listDirecMouseClicked(evt);
+            }
+        });
         listDirec.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listDirecValueChanged(evt);
@@ -120,10 +128,10 @@ public class visu extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(listOcu);
 
-        btnBuscar1.setText("REGRESAR");
-        btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setText("REGRESAR");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscar1ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -177,9 +185,30 @@ public class visu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlbFechaM)
+                            .addComponent(jlbRutaAb)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnBuscar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnRegresar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 11, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtRuta1)
+                                .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtRuta)
                                 .addContainerGap())
@@ -189,38 +218,21 @@ public class visu extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3)
-                                .addGap(76, 76, 76))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbFechaM)
-                            .addComponent(jlbRutaAb)
-                            .addComponent(jLabel7)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnBuscar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnBuscar1)
-                                        .addGap(22, 22, 22))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 11, Short.MAX_VALUE))))
+                                .addGap(76, 76, 76))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(23, 23, 23)
+                .addComponent(txtRuta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar)
-                    .addComponent(btnBuscar1))
+                    .addComponent(btnRegresar))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -246,7 +258,7 @@ public class visu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-
+        txtRuta1.setText(txtRuta.getText());
         vaciarLista();
 
         /*
@@ -442,8 +454,7 @@ public class visu extends javax.swing.JFrame {
 
     }
 
-    
-    public void actualizar(){
+    public void actualizar() {
         vaciarLista();
 
         File ruta;
@@ -479,7 +490,7 @@ public class visu extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void jItemRenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemRenActionPerformed
 
         String achivoSelec = null;
@@ -607,12 +618,40 @@ public class visu extends javax.swing.JFrame {
         }
 
         actualizar();
-        
+
     }//GEN-LAST:event_jItemEliminarActionPerformed
 
-    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscar1ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void listDirecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listDirecMouseClicked
+
+        mouseClic(evt);
+
+    }//GEN-LAST:event_listDirecMouseClicked
+
+    private void mouseClic(java.awt.event.MouseEvent evt) {
+
+        String achivoSelec = (String) listDirec.getSelectedValue();
+
+        //String elementoSelec = (String) listDirec.getSelectedValue();
+        String rutaSelec = txtRuta.getText().trim() + "\\" + achivoSelec;
+        File archivoSelec1 = new File(rutaSelec);
+        String rutaA = archivoSelec1.getAbsolutePath();
+
+        JList list = (JList) evt.getSource();
+        
+        if (evt.getClickCount() == 2) {
+            
+            int index = list.locationToIndex(evt.getPoint());
+            txtRuta.setText(rutaA);
+            
+            //System.out.println("index: " + index);
+
+            actualizar();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -651,7 +690,7 @@ public class visu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnBuscar1;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JMenuItem jItemCrearA;
     private javax.swing.JMenuItem jItemCrearC;
     private javax.swing.JMenuItem jItemEliminar;
@@ -674,5 +713,6 @@ public class visu extends javax.swing.JFrame {
     private javax.swing.JList listDirec;
     private javax.swing.JList listOcu;
     private javax.swing.JTextField txtRuta;
+    private javax.swing.JTextField txtRuta1;
     // End of variables declaration//GEN-END:variables
 }
