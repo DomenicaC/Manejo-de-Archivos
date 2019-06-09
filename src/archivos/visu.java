@@ -76,6 +76,7 @@ public class visu extends javax.swing.JFrame {
         jItemCrearC = new javax.swing.JMenuItem();
         jItemRen = new javax.swing.JMenuItem();
         jItemEliminar = new javax.swing.JMenuItem();
+        jItemEliCar = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -165,13 +166,21 @@ public class visu extends javax.swing.JFrame {
         jMenu2.add(jItemRen);
 
         jItemEliminar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        jItemEliminar.setText("Eliminar");
+        jItemEliminar.setText("Eliminar Archivo ");
         jItemEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jItemEliminarActionPerformed(evt);
             }
         });
         jMenu2.add(jItemEliminar);
+
+        jItemEliCar.setText("Eliminar Carpeta");
+        jItemEliCar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jItemEliCarActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jItemEliCar);
 
         jMenuBar1.add(jMenu2);
 
@@ -256,6 +265,53 @@ public class visu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void borrarDirectorio(File archivoSelec) {
+/*
+        String elementoSelec = (String) listDirec.getSelectedValue();
+        
+        String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
+        System.out.println("Ruta elemento Seleccionado " + rutaSelec);
+
+         archivoSelec = new File(rutaSelec);*/
+
+        if (archivoSelec.isDirectory()) {
+            
+            try {
+                
+                for (File listFile : archivoSelec.listFiles()) {
+                    
+                    if(listFile.isFile()){
+                        
+                        listFile.delete();
+                        
+                    }else if(listFile.isDirectory()){
+                        
+                        borrarDirectorio(listFile);
+                        listFile.delete();
+                        listFile.deleteOnExit();
+                        
+                    }
+                }
+            } catch (NullPointerException ex) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar \n" + ex);
+            }
+        }
+        archivoSelec.delete();
+        archivoSelec.deleteOnExit();
+
+        /*
+         File[] ficheros = directorio.listFiles();
+
+         for (int i = 0; i < ficheros.length; i++) {
+
+         if (ficheros[i].isDirectory()) {
+         borrarDirectorio(ficheros[i]);
+         }
+         ficheros[i].delete();
+
+         }*/
+    }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         txtRuta1.setText(txtRuta.getText());
@@ -593,11 +649,11 @@ public class visu extends javax.swing.JFrame {
 
             achivoSelec = (String) listArc.getSelectedValue();
 
-        } else if (!listDirec.isSelectionEmpty()) {
+        } /*else if (!listDirec.isSelectionEmpty()) {
 
-            achivoSelec = (String) listDirec.getSelectedValue();
+         achivoSelec = (String) listDirec.getSelectedValue();
 
-        } else if (!listOcu.isSelectionEmpty()) {
+         } */ else if (!listOcu.isSelectionEmpty()) {
 
             achivoSelec = (String) listOcu.getSelectedValue();
 
@@ -631,6 +687,21 @@ public class visu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_listDirecMouseClicked
 
+    private void jItemEliCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemEliCarActionPerformed
+
+        JOptionPane.showConfirmDialog(this, "Desea Eliminar");
+        String elementoSelec = (String) listDirec.getSelectedValue();
+        
+        String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
+        System.out.println("Ruta elemento Seleccionado " + rutaSelec);
+
+        File archivoSelec = new File(rutaSelec);
+        borrarDirectorio(archivoSelec);
+        
+        actualizar();
+
+    }//GEN-LAST:event_jItemEliCarActionPerformed
+
     private void mouseClic(java.awt.event.MouseEvent evt) {
 
         String achivoSelec = (String) listDirec.getSelectedValue();
@@ -641,16 +712,16 @@ public class visu extends javax.swing.JFrame {
         String rutaA = archivoSelec1.getAbsolutePath();
 
         JList list = (JList) evt.getSource();
-        
+
         if (evt.getClickCount() == 2) {
-            
+
             int index = list.locationToIndex(evt.getPoint());
             txtRuta.setText(rutaA);
-            
-            //System.out.println("index: " + index);
 
+            //System.out.println("index: " + index);
             actualizar();
         }
+
     }
 
     /**
@@ -693,6 +764,7 @@ public class visu extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JMenuItem jItemCrearA;
     private javax.swing.JMenuItem jItemCrearC;
+    private javax.swing.JMenuItem jItemEliCar;
     private javax.swing.JMenuItem jItemEliminar;
     private javax.swing.JMenuItem jItemRen;
     private javax.swing.JLabel jLabel1;
