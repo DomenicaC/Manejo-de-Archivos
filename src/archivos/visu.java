@@ -76,7 +76,6 @@ public class visu extends javax.swing.JFrame {
         jItemCrearC = new javax.swing.JMenuItem();
         jItemRen = new javax.swing.JMenuItem();
         jItemEliminar = new javax.swing.JMenuItem();
-        jItemEliCar = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -173,14 +172,6 @@ public class visu extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jItemEliminar);
-
-        jItemEliCar.setText("Eliminar Carpeta");
-        jItemEliCar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jItemEliCarActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jItemEliCar);
 
         jMenuBar1.add(jMenu2);
 
@@ -438,7 +429,7 @@ public class visu extends javax.swing.JFrame {
 
          elementoSelec1.*/
         //mostrarDatos(elementoSelec);
-        String achivoSelec = null;
+        String achivoSelec/* = null*/;
 
         if (!listDirec.isSelectionEmpty()) {
 
@@ -476,7 +467,9 @@ public class visu extends javax.swing.JFrame {
                 }
             }
 
-        } else {
+        } else /*if(!listArc.isSelectionEmpty())*/ {
+
+            //achivoSelec = (String) listArc.getSelectedValue();
             String nombreAr = JOptionPane.showInputDialog("Ingrese el nombre del archivo");
             String ruta = txtRuta.getText().trim() + "\\" + nombreAr;
             System.out.println("Nombre del archivo " + nombreAr + " Ruta Archivo " + ruta);
@@ -642,7 +635,7 @@ public class visu extends javax.swing.JFrame {
 
     private void jItemEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemEliminarActionPerformed
 
-        JOptionPane.showConfirmDialog(this, "Desea Eliminar");
+        //JOptionPane.showConfirmDialog(this, "Desea Eliminar");
         //String elementoSelec = (String) listDirec.getSelectedValue();
 /*
          String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
@@ -654,18 +647,20 @@ public class visu extends javax.swing.JFrame {
         boolean isValid = true;
 
         if (!listArc.isSelectionEmpty()) {
-
+            
+            JOptionPane.showConfirmDialog(this, "Desea Eliminar");
             elementoSelec = (String) listArc.getSelectedValue();
+            
+            String rutaArcSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
 
-            String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
-            System.out.println("Ruta elemento Seleccionado " + rutaSelec);
+            File archivo = new File(rutaArcSelec);
 
-            File archivoSelec = new File(rutaSelec);
-
-            eliminarArc(archivoSelec);
+            archivo.delete();
 
         } else if (!listDirec.isSelectionEmpty()) {
 
+            JOptionPane.showConfirmDialog(this, "Desea Eliminar");
+            
             elementoSelec = (String) listDirec.getSelectedValue();
 
             String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
@@ -677,6 +672,8 @@ public class visu extends javax.swing.JFrame {
 
         } else if (!listOcu.isSelectionEmpty()) {
 
+            JOptionPane.showConfirmDialog(this, "Desea Eliminar");
+            
             elementoSelec = (String) listOcu.getSelectedValue();
 
             String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
@@ -690,7 +687,12 @@ public class visu extends javax.swing.JFrame {
 
             } else if (archivoSelec.isFile()) {
 
-                eliminarArc(archivoSelec);
+                //eliminarArc(archivoSelec);
+                String rutaArcSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
+
+                File archivo = new File(rutaArcSelec);
+
+                archivo.delete();
 
             }
 
@@ -724,7 +726,23 @@ public class visu extends javax.swing.JFrame {
     }
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+
+        String path = txtRuta.getText().trim();
+        String volver = null;
+
+        for (int i = path.length() - 2; i > 2; i--) {
+
+            if ((int) path.charAt(i) == 92) {
+
+                volver = path.substring(0, i);
+                txtRuta.setText(volver);
+                btnBuscarActionPerformed(evt);
+                break;
+
+            }
+
+        }
+
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void listDirecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listDirecMouseClicked
@@ -732,21 +750,6 @@ public class visu extends javax.swing.JFrame {
         mouseClic(evt);
 
     }//GEN-LAST:event_listDirecMouseClicked
-
-    private void jItemEliCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemEliCarActionPerformed
-
-        JOptionPane.showConfirmDialog(this, "Desea Eliminar");
-        String elementoSelec = (String) listDirec.getSelectedValue();
-
-        String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
-        System.out.println("Ruta elemento Seleccionado " + rutaSelec);
-
-        File archivoSelec = new File(rutaSelec);
-        borrarDirectorio(archivoSelec);
-
-        actualizar();
-
-    }//GEN-LAST:event_jItemEliCarActionPerformed
 
     private void mouseClic(java.awt.event.MouseEvent evt) {
 
@@ -810,7 +813,6 @@ public class visu extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JMenuItem jItemCrearA;
     private javax.swing.JMenuItem jItemCrearC;
-    private javax.swing.JMenuItem jItemEliCar;
     private javax.swing.JMenuItem jItemEliminar;
     private javax.swing.JMenuItem jItemRen;
     private javax.swing.JLabel jLabel1;
