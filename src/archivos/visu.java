@@ -267,30 +267,30 @@ public class visu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void borrarDirectorio(File archivoSelec) {
-/*
-        String elementoSelec = (String) listDirec.getSelectedValue();
+        /*
+         String elementoSelec = (String) listDirec.getSelectedValue();
         
-        String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
-        System.out.println("Ruta elemento Seleccionado " + rutaSelec);
+         String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
+         System.out.println("Ruta elemento Seleccionado " + rutaSelec);
 
          archivoSelec = new File(rutaSelec);*/
 
         if (archivoSelec.isDirectory()) {
-            
+
             try {
-                
+
                 for (File listFile : archivoSelec.listFiles()) {
-                    
-                    if(listFile.isFile()){
-                        
+
+                    if (listFile.isFile()) {
+
                         listFile.delete();
-                        
-                    }else if(listFile.isDirectory()){
-                        
+
+                    } else if (listFile.isDirectory()) {
+
                         borrarDirectorio(listFile);
                         listFile.delete();
                         listFile.deleteOnExit();
-                        
+
                     }
                 }
             } catch (NullPointerException ex) {
@@ -642,40 +642,86 @@ public class visu extends javax.swing.JFrame {
 
     private void jItemEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jItemEliminarActionPerformed
 
-        String achivoSelec = null;
+        JOptionPane.showConfirmDialog(this, "Desea Eliminar");
+        //String elementoSelec = (String) listDirec.getSelectedValue();
+/*
+         String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
+         System.out.println("Ruta elemento Seleccionado " + rutaSelec);
+
+         File archivoSelec = new File(rutaSelec);*/
+
+        String elementoSelec = null;
         boolean isValid = true;
 
         if (!listArc.isSelectionEmpty()) {
 
-            achivoSelec = (String) listArc.getSelectedValue();
+            elementoSelec = (String) listArc.getSelectedValue();
 
-        } /*else if (!listDirec.isSelectionEmpty()) {
+            String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
+            System.out.println("Ruta elemento Seleccionado " + rutaSelec);
 
-         achivoSelec = (String) listDirec.getSelectedValue();
+            File archivoSelec = new File(rutaSelec);
 
-         } */ else if (!listOcu.isSelectionEmpty()) {
+            eliminarArc(archivoSelec);
 
-            achivoSelec = (String) listOcu.getSelectedValue();
+        } else if (!listDirec.isSelectionEmpty()) {
+
+            elementoSelec = (String) listDirec.getSelectedValue();
+
+            String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
+            System.out.println("Ruta elemento Seleccionado " + rutaSelec);
+
+            File archivoSelec = new File(rutaSelec);
+
+            borrarDirectorio(archivoSelec);
+
+        } else if (!listOcu.isSelectionEmpty()) {
+
+            elementoSelec = (String) listOcu.getSelectedValue();
+
+            String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
+            System.out.println("Ruta elemento Seleccionado " + rutaSelec);
+
+            File archivoSelec = new File(rutaSelec);
+
+            if (archivoSelec.isDirectory()) {
+
+                borrarDirectorio(archivoSelec);
+
+            } else if (archivoSelec.isFile()) {
+
+                eliminarArc(archivoSelec);
+
+            }
 
         } else {
             isValid = false;
-            //JOptionPane.showMessageDialog(this, "no hay ningun elemento seleccionado");
+            JOptionPane.showMessageDialog(this, "no hay ningun elemento seleccionado");
         }
 
-        if (isValid = true) {
-            JOptionPane.showConfirmDialog(this, "Desea Eliminar");
-            String rutaArcSelec = txtRuta.getText().trim() + "\\" + achivoSelec;
+        /*if (isValid = true) {
+         JOptionPane.showConfirmDialog(this, "Desea Eliminar");
+         String rutaArcSelec = txtRuta.getText().trim() + "\\" + achivoSelec;
 
-            File archivo = new File(rutaArcSelec);
+         File archivo = new File(rutaArcSelec);
 
-            archivo.delete();
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo elimionar \n No hay ningun elemento seleccionado");
-        }
-
+         archivo.delete();
+         } else {
+         JOptionPane.showMessageDialog(this, "No se pudo elimionar \n No hay ningun elemento seleccionado");
+         }*/
         actualizar();
 
     }//GEN-LAST:event_jItemEliminarActionPerformed
+
+    public void eliminarArc(File archivoSelec) {
+
+        String rutaArcSelec = txtRuta.getText().trim() + "\\" + archivoSelec;
+
+        File archivo = new File(rutaArcSelec);
+
+        archivo.delete();
+
+    }
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
@@ -691,13 +737,13 @@ public class visu extends javax.swing.JFrame {
 
         JOptionPane.showConfirmDialog(this, "Desea Eliminar");
         String elementoSelec = (String) listDirec.getSelectedValue();
-        
+
         String rutaSelec = txtRuta.getText().trim() + "\\" + elementoSelec;
         System.out.println("Ruta elemento Seleccionado " + rutaSelec);
 
         File archivoSelec = new File(rutaSelec);
         borrarDirectorio(archivoSelec);
-        
+
         actualizar();
 
     }//GEN-LAST:event_jItemEliCarActionPerformed
